@@ -13,8 +13,13 @@
 - name: Install virtualenv
   pip: name=virtualenv
 
+- name: Check Docker presence
+  stat: path=/usr/bin/docker
+  register: docker
+
 - name: Install Docker
   shell: curl -sSL https://get.docker.com/ | sh
+  when: docker.stat.exists == false
   
 - name: Install docker-py
   pip: name=docker-py
