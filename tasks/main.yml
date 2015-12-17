@@ -1,0 +1,21 @@
+---
+# tasks file for sparkfabrik.docker
+- name: Install Python dependencies
+  apt: pkg={{ item }} state=present
+  with_items:
+    - python-setuptools
+    - python-dev
+    - build-essential
+
+- name: Install pip
+  easy_install: name=pip
+
+- name: Install virtualenv
+  pip: name=virtualenv
+
+- name: Install Docker
+  shell: curl -sSL https://get.docker.com/ | sh
+  
+- name: Install docker-py
+  pip: name=docker-py
+
